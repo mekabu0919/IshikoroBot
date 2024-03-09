@@ -1,7 +1,7 @@
 # インストールした discord.py を読み込む
 import os
 import discord
-
+from keep_alive import keep_alive
 # 自分のBotのアクセストークンに置き換えてください
 TOKEN = os.environ["TOKEN"]
 GUILD_ID = int(os.environ["GUILDID"])
@@ -34,4 +34,5 @@ async def talk(interaction: discord.Interaction, message: str = ""):
     await interaction.response.send_message("よくわかんねぇな")
 
 # Botの起動とDiscordサーバーへの接続
+keep_alive()
 client.run(TOKEN)
