@@ -19,6 +19,14 @@ async def on_ready():
     print('ログインしました')
     await tree.sync(guild=discord.Object(id=GUILD_ID))
 
+@client.event
+async def on_message(message):
+    if message.author == client.user:
+        return
+
+    if message.content.startswith('$hello'):
+        await message.channel.send('Hello!')
+
 @tree.command(name="ishikoro", description="話しかける")
 @discord.app_commands.guilds(GUILD_ID)
 async def talk(interaction: discord.Interaction, message: str = ""):
