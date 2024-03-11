@@ -24,11 +24,15 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    if message.author == client.user:
-        return
-
-    if message.content.startswith('$hello'):
-        await message.channel.send('Hello!')
+    if message.mentions and client.user in message.mentions:
+        if message.author == client.user:
+            return
+        # parts = message.content.split(' ', 1)
+        # arguments = ' '.join(parts)
+        response = completion(
+        model="gemini/gemini-pro", 
+            messages=[{"role": "user", "content": message.content}])
+        message.reply(response['choices'][0]['message']['content'])
 
 @tree.command(name="ishikoro", description="話しかける")
 @discord.app_commands.guilds(GUILD_ID)
