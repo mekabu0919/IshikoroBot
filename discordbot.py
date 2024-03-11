@@ -23,8 +23,8 @@ async def on_ready():
     await tree.sync(guild=discord.Object(id=GUILD_ID))
 
 def message_sent(message_to_reply):
-    system_message = {"role": "system", "content": "あなたは修行中のAIアシスタントです。あなたの名前はいしころもちです。", "name": "師匠"}
-    user_message = {"role": "user", "content": message_to_reply.content, "name": message_to_reply.author.name}
+    system_message = {"role": "system", "content": "あなたは修行中のAIアシスタントです。あなたの名前はいしころもちです。"}
+    user_message = {"role": "user", "content": message_to_reply.content}
     return [system_message, user_message]
 
 @client.event
