@@ -32,7 +32,7 @@ async def on_message(message):
         response = completion(
         model="gemini/gemini-pro", 
             messages=[{"role": "user", "content": message.content}])
-        message.reply(response['choices'][0]['message']['content'])
+        await message.reply(response['choices'][0]['message']['content'])
 
 @tree.command(name="ishikoro", description="話しかける")
 @discord.app_commands.guilds(GUILD_ID)
