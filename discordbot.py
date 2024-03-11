@@ -45,7 +45,7 @@ async def talk(interaction: discord.Interaction, message: str = ""):
     response = completion(
     model="gemini/gemini-pro", 
     messages=[{"role": "user", "content": "write code for saying hi from LiteLLM"}])
-    await interaction.response.send_message(response)
+    await interaction.response.send_message(response['choices'][0]['message']['content'])
 
 # Botの起動とDiscordサーバーへの接続
 keep_alive()
