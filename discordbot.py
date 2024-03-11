@@ -25,7 +25,7 @@ async def on_ready():
 def message_sent(message_to_reply):
     system_message = {"role": "system", "content": "あなたは修行中のAIアシスタントです。あなたの名前はいしころもちです。"}
     user_message = {"role": "user", "content": message_to_reply.content}
-    return [system_message, user_message]
+    return [user_message]
 
 @client.event
 async def on_message(message):
@@ -34,10 +34,14 @@ async def on_message(message):
             return
         # parts = message.content.split(' ', 1)
         # arguments = ' '.join(parts)
-        response = completion(
-        model="gemini/gemini-pro", 
-            messages=message_sent(message))
-        await message.reply(response['choices'][0]['message']['content'])
+        try:
+            response = completion(
+            model="gemini/gemini-pro", 
+                messages=message_sent(message))
+            reply_content = response['choices'][0]['message']['content']
+        except Exception as e:
+            reply_content = e
+        await message.reply(reply_content)
 
 @tree.command(name="ishikoro", description="話しかける")
 @discord.app_commands.guilds(GUILD_ID)
