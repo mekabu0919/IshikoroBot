@@ -22,6 +22,11 @@ async def on_ready():
     print('ログインしました')
     await tree.sync(guild=discord.Object(id=GUILD_ID))
 
+def message_sent(message_to_reply):
+    system_message = {"role": "system", "content": "あなたは修行中のAIアシスタントです。あなたの名前はいしころもちです。", "name": "師匠"}
+    user_message = {"role": "user", "content": message_to_reply.content, "name": message_to_reply.author.name}
+    return [system_message, user_message]
+
 @client.event
 async def on_message(message):
     if message.mentions and client.user in message.mentions:
@@ -31,7 +36,7 @@ async def on_message(message):
         # arguments = ' '.join(parts)
         response = completion(
         model="gemini/gemini-pro", 
-            messages=[{"role": "user", "content": message.content}])
+            messages=message_sent(message))
         await message.reply(response['choices'][0]['message']['content'])
 
 @tree.command(name="ishikoro", description="話しかける")
@@ -46,10 +51,7 @@ async def talk(interaction: discord.Interaction, message: str = ""):
     if message in ["ねこ", "neko", "猫", "ネコ"]:
         await interaction.response.send_message("にゃーん")
         return
-    response = completion(
-    model="gemini/gemini-pro", 
-        messages=[{"role": "user", "content": message}])
-    await interaction.response.send_message(response['choices'][0]['message']['content'])
+
 
 # Botの起動とDiscordサーバーへの接続
 keep_alive()
