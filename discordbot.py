@@ -12,6 +12,9 @@ intents.message_content = True
 client = discord.Client(intents=intents)
 tree = discord.app_commands.CommandTree(client)
 
+from litellm import completion
+import os
+
 # 起動時に動作する処理
 @client.event
 async def on_ready():
@@ -39,7 +42,10 @@ async def talk(interaction: discord.Interaction, message: str = ""):
     if message in ["ねこ", "neko", "猫", "ネコ"]:
         await interaction.response.send_message("にゃーん")
         return
-    await interaction.response.send_message("よくわかんねぇな")
+    response = completion(
+    model="gemini/gemini-pro", 
+    messages=[{"role": "user", "content": "write code for saying hi from LiteLLM"}])
+    await interaction.response.send_message(response)
 
 # Botの起動とDiscordサーバーへの接続
 keep_alive()
