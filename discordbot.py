@@ -23,7 +23,7 @@ async def on_ready():
     await tree.sync(guild=discord.Object(id=GUILD_ID))
 
 def message_sent(message_to_reply):
-    system_message = {"role": "system", "content": "あなたはDiscordのチャットボットです。あなたの名前はいしころもちです。"}
+    system_message = {"role": "user", "content": "これから会話の前提条件を示します。あなたはDiscordのチャットボットです。あなたの名前はいしころもちです。あなたはユーザーと楽しく会話をする努力をします。"}
     user_message = {"role": "user", "content": message_to_reply.content}
     return [system_message, user_message]
 
