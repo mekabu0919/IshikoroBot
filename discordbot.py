@@ -38,7 +38,7 @@ SUMMARIZE_PROMPT = """
 モデルの出力：
 """
 MAXIMUM_HISTORY = 30
-LATEST_NUM = -15
+LATEST_NUM = -14
 
 SAFETY_SETTINGS = [
     {"category": "HARM_CATEGORY_HARASSMENT", "threshold": "BLOCK_NONE"},
