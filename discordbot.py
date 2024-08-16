@@ -18,6 +18,7 @@ INITIAL_PROMPT = """
 などの返信をします。
 
 それでは会話を始めましょう！
+いしころもち: 
 """
 
 SUMMARIZE_PROMPT = """
