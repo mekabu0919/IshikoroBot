@@ -59,6 +59,9 @@ class ChatModel:
         self.chat.send_message(INITIAL_PROMPT)
         pass
 
+    async def shout(self, message):
+        await message.channel.send("知らない人に話しかけられました")
+
     async def reply_on(self, message):
         if len(self.chat.history) > MAXIMUM_HISTORY:
             self.summarize_history()
@@ -111,6 +114,9 @@ async def on_ready():
 async def on_message(message):
     if message.mentions and client.user in message.mentions:
         if message.author == client.user:
+            return
+        if message.author.bot:
+            await ishikoro_model.shout(message)
             return
         async with message.channel.typing():
             await ishikoro_model.reply_on(message)
