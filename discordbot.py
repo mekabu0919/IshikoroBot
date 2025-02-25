@@ -52,7 +52,7 @@ class ChatModel:
     def __init__(self) -> None:
         genai.configure(api_key=GOOGLE_API_KEY)
         self.model = genai.GenerativeModel(
-            "models/gemini-1.5-flash", safety_settings=SAFETY_SETTINGS
+            "models/gemini-2.0-flash", safety_settings=SAFETY_SETTINGS
         )
         self.history = []
         self.chat = self.model.start_chat(history=self.history)
