@@ -122,12 +122,11 @@ async def on_message(message):
             await ishikoro_model.reply_on(message)
 
 
-@tree.command(name="ishikoro", description="話しかける")
+@tree.command(name="ishikoro", description="わすれる")
 @discord.app_commands.guilds(GUILD_ID)
 async def talk(interaction: discord.Interaction, message: str = ""):
-    if message == "reset":
-        ishikoro_model.restart()
-        await interaction.response.send_message("いち、にの、ぽかん")
+    ishikoro_model.restart()
+    await interaction.response.send_message("いち、にの、ぽかん")
 
 
 # Botの起動とDiscordサーバーへの接続
